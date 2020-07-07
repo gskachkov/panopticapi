@@ -66,7 +66,7 @@ def convert_detection_to_panoptic_coco_format_single_core(
             segments_info.append(ann)
 
         if np.sum(overlaps_map > 1) != 0:
-            raise Exception("Segments for image {} overlap each other.".format(img_id))
+            raise Exception("Segments for image {0} overlap each other.{1}".format(img_id, file_name))
         panoptic_record['segments_info'] = segments_info
         annotations_panoptic.append(panoptic_record)
 
