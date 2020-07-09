@@ -93,7 +93,17 @@ def id2rgb(id_map):
         id_map //= 256
     return color
 
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        else:
+            return super(NpEncoder, self).default(obj)
 
 def save_json(d, file):
     with open(file, 'w') as f:
-        json.dump(d, f)
+        json.dump(d, f, cls=NpEncoder)
